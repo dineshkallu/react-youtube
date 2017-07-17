@@ -8,11 +8,24 @@ display:flex;
 height: 500px;
 background: pink;
 `
-const VideoComponent = () => (
-    <VideoDiv>
-        <VideoPlayerComponent />
-        <PlayListComponent />
-    </VideoDiv>
-)
 
-export default VideoComponent
+
+export default class VideoComponent extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {videoId: ''}
+    }
+
+    playlistItemSelected(id) {
+        this.setState({videoId: id})
+    }
+
+    render() {
+        return (
+            <VideoDiv>
+                <VideoPlayerComponent videoId={this.state.videoId}/>
+                <PlayListComponent playlistSelectionCallback={this.playlistItemSelected.bind(this)}/>
+            </VideoDiv>
+        )
+    }
+}
